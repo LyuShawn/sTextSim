@@ -20,7 +20,11 @@ def load_from_pretrained(self, from_pretrained):
         # 加载 bin 格式的权重
         pretrained_state_dict = torch.load(bin_file, map_location='cpu')
     else:
-        raise ValueError("No valid model file found in the provided path.")
+        # 尝试直接从hf加载
+        try:
+            pretrained_state_dict = AutoModel.from_pretrained(from_pretrained).state_dict()
+        except:
+            raise ValueError("No valid model file found in the provided path.")
 
     # 获取当前模型的 state_dict
     bert_state_dict = self.model.state_dict()
