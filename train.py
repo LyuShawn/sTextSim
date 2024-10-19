@@ -6,6 +6,14 @@ from transformers import BertTokenizer,HfArgumentParser,set_seed
 from dataclasses import dataclass, field
 from typing import Optional
 from main.auto_eval import eval
+import logging
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
+logging.basicConfig(format="%(asctime)s - %(message)s", level=logging.INFO)
+logging.getLogger().setLevel(logging.INFO)
+
+
 
 @dataclass
 class TrainArguments:
@@ -15,7 +23,7 @@ class TrainArguments:
     data_present_path: Optional[str] = field(default='./dataset/present.json',metadata={"help": "The path of present data"})
     max_seq_len: Optional[int] = field(default=32, metadata={"help": "The max sequence length of input"})
     hard_negative_weight: Optional[float] = field(default=0, metadata={"help": "The weight of hard negative samples"})
-    batch_size: Optional[int] = field(default=64, metadata={"help": "The batch size of training"})
+    batch_size: Optional[int] = field(default=128, metadata={"help": "The batch size of training"})
     temp: Optional[float] = field(default=0.05, metadata={"help": "The temperature of contrastive loss"})
     data_name: Optional[str] = field(default='WikiSTS', metadata={"help": "The name of dataset"})
     task_name: Optional[str] = field(default='SimCSE_Wiki_unsup', metadata={"help": "The name of task"})
@@ -35,8 +43,11 @@ class ModelArguments:
 
 def main():
 
+    logger.info('***Start training***')
     parser = HfArgumentParser((TrainArguments, ModelArguments))
     train_args, model_args= parser.parse_args_into_dataclasses()
+    logger.info(f"Train arguments: {train_args}")
+    logger.info(f"Model arguments: {model_args}")
 
     if not train_args.tokenizer_name:
         train_args.tokenizer_name = train_args.model_name_or_path
@@ -57,15 +68,16 @@ def main():
                     model_save_path=train_args.model_save_path)
 
     if train_args.do_train:
-        # do training
+        logger.info('***Start training***')
         for i in trainer(num_epochs=train_args.epochs, lr=train_args.lr, gpu=[0], eval_call_step=lambda x: x % train_args.eval_steps == 0):
             a = i
 
     if train_args.do_eval:
         # do evaluation
-        print('***Start evaluation***')
+        logger.info('***Start evaluation***')
         best_model_path = train_args.model_save_path + train_args.task_name + '/simcse_best/'
         eval(best_model_path)
+    logger.info('***End***')
 
 
 if __name__ == "__main__":

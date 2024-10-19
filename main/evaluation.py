@@ -7,7 +7,6 @@ from prettytable import PrettyTable
 import torch
 import transformers
 from transformers import AutoModel, AutoTokenizer
-from main.auto_eval import eval
 
 # Set up logger
 logging.basicConfig(format='%(asctime)s : %(message)s', level=logging.DEBUG)

@@ -1,3 +1,5 @@
 tsp python train.py --batch_size 256 --task_name SimCSE_Wiki_unsup41 --model_save_path ~/autodl-tmp/save_model/ --do_train --do_eval
 tsp python train.py --batch_size 256 --task_name SimCSE_Wiki_unsup42 --dropout 0.15 --model_save_path ~/autodl-tmp/save_model/ --do_train --do_eval
 tsp python train.py --batch_size 256 --task_name SimCSE_Wiki_unsup43 --seed 579 --model_save_path ~/autodl-tmp/save_model/ --do_train --do_eval
+
+python main/evaluation.py --model_name_or_path='save_model/SimCSE_Wiki_unsup41/simcse_best/' --tokenizer_path='save_model/SimCSE_Wiki_unsup41/simcse_best/'

@@ -8,57 +8,58 @@ from transformers.utils import ModelOutput
 from safetensors.torch import load_file as load_safetensors
 
 
-def load_from_pretrained(self, from_pretrained):
-    # 检查是否存在 safetensors 文件
-    safetensors_file = os.path.join(from_pretrained, 'model.safetensors')
-    bin_file = os.path.join(from_pretrained, 'pytorch_model.bin')
+# def load_from_pretrained(self, from_pretrained=None):
+#     """
+#     为simcse 初始化权重，如果没有指定from_pretrained，则直接从encoder加载
+#     """
 
-    if os.path.exists(safetensors_file):
-        # 加载 safetensors 格式的权重
-        pretrained_state_dict = load_safetensors(safetensors_file)
-    elif os.path.exists(bin_file):
-        # 加载 bin 格式的权重
-        pretrained_state_dict = torch.load(bin_file, map_location='cpu')
-    else:
-        # 尝试直接从hf加载
-        try:
-            pretrained_state_dict = AutoModel.from_pretrained(from_pretrained).state_dict()
-        except:
-            raise ValueError("No valid model file found in the provided path.")
+#     if not from_pretrained:
+#         self.load_state_dict(self.encoder.state_dict(), strict=True)
+#         return 
 
-    # 获取当前模型的 state_dict
-    bert_state_dict = self.model.state_dict()
+#     # 检查是否存在 safetensors 文件
+#     safetensors_file = os.path.join(from_pretrained, 'model.safetensors')
+#     bin_file = os.path.join(from_pretrained, 'pytorch_model.bin')
 
-    # 将预训练的权重映射到现有的模型权重
-    for key, val in pretrained_state_dict.items():
-        exists = False
-        for _key in bert_state_dict:
-            if key.endswith(_key):
-                exists = True
-                break
-        if exists:
-            bert_state_dict[_key] = val
+#     if os.path.exists(safetensors_file):
+#         # 加载 safetensors 格式的权重
+#         pretrained_state_dict = load_safetensors(safetensors_file)
+#     elif os.path.exists(bin_file):
+#         # 加载 bin 格式的权重
+#         pretrained_state_dict = torch.load(bin_file, map_location='cpu')
+#     else:
+#         # 尝试直接从hf加载
+#         try:
+#             self.encoder = AutoModel.from_pretrained(from_pretrained)
+#             pretrained_state_dict = self.model.state_dict()
+#         except:
+#             raise ValueError("No valid model file found in the provided path.")
 
-    # 加载更新后的模型权重
-    self.model.load_state_dict(bert_state_dict, strict=False)
+#     # 加载更新后的模型权重
+#     self.encoder.load_state_dict(pretrained_state_dict, strict=True)
 
-    # 最后再加载所有权重
-    self.load_state_dict(pretrained_state_dict, strict=False)
+#     # 再加载所有权重
+#     bert_state_dict = {}
+#     for key, val in pretrained_state_dict.items():
+#         bert_state_dict[f'model.{key}'] = val
+#     self.load_state_dict(bert_state_dict, strict=False)
 
 
-def cl_init(self, from_pretrained, pooler_type, hard_negative_weight, temp):
-    self.model = AutoModel.from_pretrained(from_pretrained)
-    self.pooler_type = pooler_type
-    self.hard_negative_weight = hard_negative_weight
-    self.temp = temp
+# def cl_init(self, from_pretrained, pooler_type, hard_negative_weight, temp):
+#     # 初始化模型，bert就从这里加载
+#     self.encoder = AutoModel.from_pretrained(from_pretrained, config=self.config)
+#     self.pooler_type = pooler_type
+#     self.hard_negative_weight = hard_negative_weight
+#     self.temp = temp
 
-    self.pooler_type = self.pooler_type
-    self.pooler = Pooler(self.pooler_type)
-    if self.pooler_type == "cls":
-        self.mlp = MLPLayer(self.config)
-    self.sim = Similarity(temp=self.temp)
-    # self.init_weights()
-    load_from_pretrained(self, from_pretrained)
+#     self.pooler_type = self.pooler_type
+#     self.pooler = Pooler(self.pooler_type)
+#     if self.pooler_type == "cls":
+#         self.mlp = MLPLayer(self.config)
+#     self.sim = Similarity(temp=self.temp)
+
+#     # self.init_weights()
+#     load_from_pretrained(self)
 
 
 def cl_forward(self,
@@ -177,7 +178,19 @@ class SimCSE(BertPreTrainedModel):
         self.config.attention_probs_dropout_prob=dropout
         super().__init__(self.config)
 
-        cl_init(self, from_pretrained, pooler_type, hard_negative_weight, temp)
+        # 加载预训练的模型
+        self.model = AutoModel.from_pretrained(from_pretrained, config=self.config)
+
+        # 其他参数
+        self.pooler_type = pooler_type
+        self.hard_negative_weight = hard_negative_weight
+        self.temp = temp
+        self.pooler = Pooler(self.pooler_type)
+        if self.pooler_type == "cls":
+            self.mlp = MLPLayer(self.config)
+        self.sim = Similarity(temp=self.temp)
+
+        # cl_init(self, from_pretrained, pooler_type, hard_negative_weight, temp)
 
     def forward(self,
                 input_ids=None,

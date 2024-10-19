@@ -14,7 +14,13 @@ from torch.utils.data import DataLoader
 import numpy as np
 from tqdm import tqdm
 from transformers import Trainer
+from torch.amp import autocast, GradScaler
 
+import warnings
+
+# 忽略特定的用户警告
+warnings.filterwarnings("ignore", category=UserWarning, module='torch.autograd.graph')
+warnings.filterwarnings("ignore", category=UserWarning, module='torch.optim.lr_scheduler')
 
 class Trainer():
 
@@ -102,6 +108,10 @@ class Trainer():
 
         train_step = resume_step if resume_step is not None else 0
         best_eval_score = 0
+
+        # 混合精度训练
+        scaler = GradScaler()
+
         for epoch in range(num_epochs):
             train_count = 0
             train_loss = 0
@@ -113,14 +123,27 @@ class Trainer():
                 for key in it.keys():
                     it[key] = self.cuda(it[key])
 
-                outputs = self.model(**it)
-                loss = outputs['loss']
-                loss = loss.mean()
+                optimizer.zero_grad()  # 清空梯度
+                with autocast(device_type='cuda'):
+                    outputs = self.model(**it)
+                    loss = outputs['loss']
+                    loss = loss.mean()
 
-                loss.backward()
-                optimizer.step()
+                # outputs = self.model(**it)
+                # loss = outputs['loss']
+                # loss = loss.mean()
+
+                # loss.backward()
+                # optimizer.step()
+
+                # 使用Scaler进行反向传播
+                scaler.scale(loss).backward()
+                scaler.step(optimizer)
+                scaler.update()
+
+                # 学习率调度器更新
                 scheduler.step()
-                self.model.zero_grad()
+                # self.model.zero_grad()
 
                 train_loss += loss.data.item()
                 train_count += 1
@@ -144,7 +167,7 @@ class Trainer():
                         uid=current_uid if self.task_name is None else self.task_name)
                     yield (epoch, self.analysis.train_record, self.analysis.eval_record, self.analysis.model_record, 'current_best')
                     self.model.train()
-            
+
             model_uid = self.save_model(epoch + 1)
 
             self.analysis.append_train_record({
@@ -163,13 +186,15 @@ class Trainer():
             dir = self.task_name
         if not os.path.exists(f'{self.model_save_path}{dir}'):
             os.makedirs(f'{self.model_save_path}{dir}')
+
         model_self = self.model.module if hasattr(
             self.model, 'module') else self.model
-        # bert_model = model_self.model
-        # bert_model.save_pretrained(
-        #     f'./save_model/{dir}/bert_{current_step}')
+
         save_path = f'{self.model_save_path}{dir}/simcse{prefix}_{current_step}'   
-        model_self.save_pretrained(save_path, safe_serialization=False)
+        # model_self.save_pretrained(save_path, safe_serialization=False)
+        # 这里save的是simcse的model，而不是整个simcse
+        model_self.model.save_pretrained(save_path)
+
         self.tokenizer.save_pretrained(save_path)
 
         self.analysis.append_model_record(current_step)

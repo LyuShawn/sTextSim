@@ -1,3 +1,4 @@
+import logging.handlers
 import sys
 import os
 import logging
@@ -14,6 +15,9 @@ sys.path.insert(0, PATH_TO_SENTEVAL)
 import senteval
 
 logger = logging.getLogger(__name__)
+# 控制台输出
+logging.basicConfig(format="%(asctime)s - %(message)s", level=logging.INFO)
+logging.getLogger().setLevel(logging.INFO)
 
 eval_task_list =[
     "STS12",
@@ -308,7 +312,7 @@ def main():
     parser = argparse.ArgumentParser(description="Run the evaluation")
     
     # 添加命令行参数，设定默认值
-    parser.add_argument("--path", type=str, default="./save_model/epoch_0", help="Path to the saved model (default: ./save_model/epoch_0)")
+    parser.add_argument("--path", type=str, default="save_model/SimCSE_Wiki_unsup41/simcse_best/", help="Path to the saved model (default: ./save_model/epoch_0)")
     parser.add_argument("--times", type=int, default=3, help="Number of times to run the evaluation (default: 3)")
     parser.add_argument("--pooler", type=str, default="cls", help="Pooler type (default: cls)")
     parser.add_argument("--task_set", type=str, default="sts", help="Task set (default: sts)")
