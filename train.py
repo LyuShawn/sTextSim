@@ -56,7 +56,7 @@ def main():
                     batch_size=train_args.batch_size,
                     temp=train_args.temp,
                     data_name=train_args.data_name,
-                    task_name=train_args.task_name
+                    task_name=train_args.task_name,
                     dropout=model_args.dropout)
 
     if train_args.do_train:
