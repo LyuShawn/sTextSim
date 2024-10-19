@@ -35,14 +35,9 @@ class ModelArguments:
 
 def main():
 
-    model_base_path = './model/'
-    save_path = './save_model/'
-
     parser = HfArgumentParser((TrainArguments, ModelArguments))
     train_args, model_args= parser.parse_args_into_dataclasses()
 
-    if  '/' not in train_args.model_name_or_path:
-        train_args.model_name_or_path = model_base_path + train_args.model_name_or_path
     if not train_args.tokenizer_name:
         train_args.tokenizer_name = train_args.model_name_or_path
 

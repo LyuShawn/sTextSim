@@ -1,1 +1,3 @@
-python train.py --batch_size 256 --task_name SimCSE_Wiki_unsup41
+tsp python train.py --batch_size 256 --task_name SimCSE_Wiki_unsup41 --model_save_path ~/autodl-tmp/save_model/ --model_name_or_path bert-base-uncased
+tsp python train.py --batch_size 256 --task_name SimCSE_Wiki_unsup42 --dropout 0.15 --model_save_path ~/autodl-tmp/save_model/
+tsp python train.py --batch_size 256 --task_name SimCSE_Wiki_unsup43 --seed 579 --model_save_path ~/autodl-tmp/save_model/
