@@ -25,6 +25,7 @@ class TrainArguments:
     seed : Optional[int] = field(default=42, metadata={"help": "The seed for training"})
     do_train: Optional[bool] = field(default=False, metadata={"help": "Whether to do training"})
     do_eval: Optional[bool] = field(default=False, metadata={"help": "Whether to do evaluation"})
+    model_save_path: Optional[str] = field(default='./save_model/', metadata={"help": "The path to save model"})
 
 @dataclass
 class ModelArguments:
@@ -57,7 +58,8 @@ def main():
                     temp=train_args.temp,
                     data_name=train_args.data_name,
                     task_name=train_args.task_name,
-                    dropout=model_args.dropout)
+                    dropout=model_args.dropout,
+                    model_save_path=train_args.model_save_path)
 
     if train_args.do_train:
         # do training
