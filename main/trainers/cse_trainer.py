@@ -13,11 +13,12 @@ from main.analysis import Analysis
 from torch.utils.data import DataLoader
 import numpy as np
 from tqdm import tqdm
+from transformers import Trainer
 
 
-class Trainer():
+class Trainer(Trainer):
 
-    def __init__(self, tokenizer, from_pretrained=None, data_name='default', data_present_path=None, train_file=None, eval_file=None, test_file=None, max_seq_len=256, batch_size=16, batch_size_eval=64, eval_label_scale=5.0, hard_negative_weight=0, temp=0.05, eval_mode='dev', task_name='SimCSE', **args):
+    def __init__(self, tokenizer, from_pretrained=None, data_name='default', data_present_path=None, train_file=None, eval_file=None, test_file=None, max_seq_len=256, batch_size=16, batch_size_eval=64, eval_label_scale=5.0, hard_negative_weight=0, temp=0.05, eval_mode='dev', task_name='SimCSE', dropout=0.1, **args):
         self.tokenizer = tokenizer
         self.from_pretrained = from_pretrained
         self.data_name = data_name
@@ -33,6 +34,7 @@ class Trainer():
         self.hard_negative_weight = hard_negative_weight
         self.temp = temp
         self.eval_mode = eval_mode
+        self.dropout = dropout
 
         self.dataloader_init()
         self.model_init()
@@ -43,7 +45,7 @@ class Trainer():
             self.from_pretrained)
         if self.config.model_type == 'bert':
             self.model = SimCSE(from_pretrained=self.from_pretrained,
-                                pooler_type='cls', hard_negative_weight=self.hard_negative_weight, temp=self.temp)
+                                pooler_type='cls', hard_negative_weight=self.hard_negative_weight, temp=self.temp, dropout=self.dropout)
         elif self.config.model_type == 'roberta':
             self.model = SimCSERoberta(from_pretrained=self.from_pretrained,
                                        pooler_type='cls', hard_negative_weight=self.hard_negative_weight, temp=self.temp)
@@ -165,8 +167,10 @@ class Trainer():
         # bert_model = model_self.model
         # bert_model.save_pretrained(
         #     f'./save_model/{dir}/bert_{current_step}')
-        model_self.save_pretrained(
-            f'./save_model/{dir}/simcse{prefix}_{current_step}', safe_serialization=False)
+        save_path = f'./save_model/{dir}/simcse{prefix}_{current_step}'   
+        model_self.save_pretrained(save_path, safe_serialization=False)
+        self.tokenizer.save_pretrained(save_path)
+
         self.analysis.append_model_record(current_step)
         return current_step
 

@@ -1,0 +1,1 @@
+wget https://huggingface.co/datasets/LyuShawn/stsbenchmark-test/raw/main/sts-test.json

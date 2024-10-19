@@ -1,0 +1,10 @@
+numpy==1.23.5
+transformers
+scipy
+datasets
+pandas
+scikit-learn
+prettytable
+gradio
+torch
+setuptools

@@ -5,12 +5,27 @@ from transformers import AutoModel, AutoConfig, BertPreTrainedModel, RobertaPreT
 from typing import Optional, Tuple
 from dataclasses import dataclass
 from transformers.utils import ModelOutput
+from safetensors.torch import load_file as load_safetensors
 
 
 def load_from_pretrained(self, from_pretrained):
-    pretrained_state_dict = torch.load(os.path.join(
-        from_pretrained, 'pytorch_model.bin'), map_location='cpu')
+    # 检查是否存在 safetensors 文件
+    safetensors_file = os.path.join(from_pretrained, 'model.safetensors')
+    bin_file = os.path.join(from_pretrained, 'pytorch_model.bin')
+
+    if os.path.exists(safetensors_file):
+        # 加载 safetensors 格式的权重
+        pretrained_state_dict = load_safetensors(safetensors_file)
+    elif os.path.exists(bin_file):
+        # 加载 bin 格式的权重
+        pretrained_state_dict = torch.load(bin_file, map_location='cpu')
+    else:
+        raise ValueError("No valid model file found in the provided path.")
+
+    # 获取当前模型的 state_dict
     bert_state_dict = self.model.state_dict()
+
+    # 将预训练的权重映射到现有的模型权重
     for key, val in pretrained_state_dict.items():
         exists = False
         for _key in bert_state_dict:
@@ -19,14 +34,11 @@ def load_from_pretrained(self, from_pretrained):
                 break
         if exists:
             bert_state_dict[_key] = val
+
+    # 加载更新后的模型权重
     self.model.load_state_dict(bert_state_dict, strict=False)
-    # for key, val in pretrained_state_dict.items():
-    #     for name, module in self.model.named_modules():
-    #         if name not in ['', 'embeddings']:
-    #             if key.endswith(name + '.weight'):
-    #                 module.weight.data = val
-    #             elif key.endswith(name + '.bias'):
-    #                 module.bias.data = val
+
+    # 最后再加载所有权重
     self.load_state_dict(pretrained_state_dict, strict=False)
 
 
@@ -155,8 +167,10 @@ def cl_forward(self,
 
 class SimCSE(BertPreTrainedModel):
 
-    def __init__(self, from_pretrained, pooler_type, hard_negative_weight=0, temp=0.05):
+    def __init__(self, from_pretrained, pooler_type, hard_negative_weight=0, temp=0.05, dropout=0.1):
         self.config = AutoConfig.from_pretrained(from_pretrained)
+        self.config.hidden_dropout_prob=dropout
+        self.config.attention_probs_dropout_prob=dropout
         super().__init__(self.config)
 
         cl_init(self, from_pretrained, pooler_type, hard_negative_weight, temp)

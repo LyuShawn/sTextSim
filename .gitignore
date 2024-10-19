@@ -2,5 +2,10 @@
 model/
 save_model/
 data_record/
-dataset/
 .hypothesis/
+cache/
+
+dataset/**/*.txt
+dataset/**/*.csv
+dataset/**/*.json
+dataset/**/*.jsonl
