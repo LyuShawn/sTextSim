@@ -63,7 +63,7 @@ def main():
 
     if train_args.do_eval:
         # do evaluation
-        best_model_path = save_path + train_args.task_name + '/simcse_best/'
+        best_model_path = train_args.model_save_path + train_args.task_name + '/simcse_best/'
         eval(best_model_path)
 
 

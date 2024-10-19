@@ -16,7 +16,7 @@ from tqdm import tqdm
 from transformers import Trainer
 
 
-class Trainer(Trainer):
+class Trainer():
 
     def __init__(self, tokenizer, from_pretrained=None, data_name='default', data_present_path=None, train_file=None, eval_file=None, test_file=None, max_seq_len=256, batch_size=16, batch_size_eval=64, eval_label_scale=5.0, hard_negative_weight=0, temp=0.05, eval_mode='dev', task_name='SimCSE', dropout=0.1, model_save_path='./save_model/', **args):
         self.tokenizer = tokenizer
