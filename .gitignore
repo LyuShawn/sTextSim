@@ -9,3 +9,5 @@ dataset/**/*.txt
 dataset/**/*.csv
 dataset/**/*.json
 dataset/**/*.jsonl
+
+!present.json

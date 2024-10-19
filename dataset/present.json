@@ -1,0 +1,357 @@
+{
+    "CNSTS": {
+        "train": "./dataset/CHIP-STS/CHIP-STS_train.json",
+        "dev": "./dataset/CHIP-STS/CHIP-STS_dev.json"
+    },
+    "CNSTSX": {
+        "train": "./dataset/CHIP-STS/CHIP-STS_train.json",
+        "dev": "./dataset/CHIP-STS/CHIP-STS_dev.json",
+        "vocab_file": "./dataset/CHIP-STS/entities.txt"
+    },
+    "CNSTSAC": {
+        "train": "./dataset/CHIP-STS/CHIP-STS_train.json",
+        "dev": "./dataset/CHIP-STS/CHIP-STS_dev.json",
+        "lexicon_path": "./dataset/CHIP-STS/ner_final"
+    },
+    "CNSTSAC_CONTEST": {
+        "train": "./dataset/CHIP-STS/CHIP-STS_train.json",
+        "dev": "./dataset/CHIP-STS/CHIP-STS_test_contest.json",
+        "lexicon_path": "./dataset/CHIP-STS/ner_final"
+    },
+    "CNSTS_250": {
+        "train": "./dataset/fewshot/CHIP-STS_250/CHIP-STS_train.json",
+        "dev": "./dataset/CHIP-STS/CHIP-STS_dev.json"
+    },
+    "CNSTS_250AC": {
+        "train": "./dataset/fewshot/CHIP-STS_250/CHIP-STS_train.json",
+        "dev": "./dataset/CHIP-STS/CHIP-STS_dev.json",
+        "lexicon_path": "./dataset/CHIP-STS/ner_final"
+    },
+    "CNSTS_500": {
+        "train": "./dataset/fewshot/CHIP-STS_500/CHIP-STS_train.json",
+        "dev": "./dataset/CHIP-STS/CHIP-STS_dev.json"
+    },
+    "CNSTS_500AC": {
+        "train": "./dataset/fewshot/CHIP-STS_500/CHIP-STS_train.json",
+        "dev": "./dataset/CHIP-STS/CHIP-STS_dev.json",
+        "lexicon_path": "./dataset/CHIP-STS/ner_final"
+    },
+    "CNSTS_1000": {
+        "train": "./dataset/fewshot/CHIP-STS_1000/CHIP-STS_train.json",
+        "dev": "./dataset/CHIP-STS/CHIP-STS_dev.json"
+    },
+    "CNSTS_1000AC": {
+        "train": "./dataset/fewshot/CHIP-STS_1000/CHIP-STS_train.json",
+        "dev": "./dataset/CHIP-STS/CHIP-STS_dev.json",
+        "lexicon_path": "./dataset/CHIP-STS/ner_final"
+    },
+    "CNSTS_2000": {
+        "train": "./dataset/fewshot/CHIP-STS_2000/CHIP-STS_train.json",
+        "dev": "./dataset/CHIP-STS/CHIP-STS_dev.json"
+    },
+    "CNSTS_2000AC": {
+        "train": "./dataset/fewshot/CHIP-STS_2000/CHIP-STS_train.json",
+        "dev": "./dataset/CHIP-STS/CHIP-STS_dev.json",
+        "lexicon_path": "./dataset/CHIP-STS/ner_final"
+    },
+    "BQ": {
+        "train": "./dataset/bq_corpus/train.json",
+        "dev": "./dataset/bq_corpus/dev.json"
+    },
+    "BQAC": {
+        "train": "./dataset/bq_corpus/train.json",
+        "dev": "./dataset/bq_corpus/dev.json",
+        "lexicon_path": "./dataset/bq_corpus/ner"
+    },
+    "BQ_250": {
+        "train": "./dataset/fewshot/bq_corpus_250/train.json",
+        "dev": "./dataset/bq_corpus/dev.json"
+    },
+    "BQ_250AC": {
+        "train": "./dataset/fewshot/bq_corpus_250/train.json",
+        "dev": "./dataset/bq_corpus/dev.json",
+        "lexicon_path": "./dataset/bq_corpus/ner"
+    },
+    "BQ_500": {
+        "train": "./dataset/fewshot/bq_corpus_500/train.json",
+        "dev": "./dataset/bq_corpus/dev.json"
+    },
+    "BQ_500AC": {
+        "train": "./dataset/fewshot/bq_corpus_500/train.json",
+        "dev": "./dataset/bq_corpus/dev.json",
+        "lexicon_path": "./dataset/bq_corpus/ner"
+    },
+    "BQ_1000": {
+        "train": "./dataset/fewshot/bq_corpus_1000/train.json",
+        "dev": "./dataset/bq_corpus/dev.json"
+    },
+    "BQ_1000AC": {
+        "train": "./dataset/fewshot/bq_corpus_1000/train.json",
+        "dev": "./dataset/bq_corpus/dev.json",
+        "lexicon_path": "./dataset/bq_corpus/ner"
+    },
+    "BQ_2000": {
+        "train": "./dataset/fewshot/bq_corpus_2000/train.json",
+        "dev": "./dataset/bq_corpus/dev.json"
+    },
+    "BQ_2000AC": {
+        "train": "./dataset/fewshot/bq_corpus_2000/train.json",
+        "dev": "./dataset/bq_corpus/dev.json",
+        "lexicon_path": "./dataset/bq_corpus/ner"
+    },
+    "ATEC": {
+        "train": "./dataset/ATEC/train.json",
+        "dev": "./dataset/ATEC/test.json"
+    },
+    "ATECAC": {
+        "train": "./dataset/ATEC/train.json",
+        "dev": "./dataset/ATEC/test.json",
+        "lexicon_path": "./dataset/ATEC/ner"
+    },
+    "ATEC_250": {
+        "train": "./dataset/fewshot/ATEC_250/train.json",
+        "dev": "./dataset/ATEC/test.json"
+    },
+    "ATEC_250AC": {
+        "train": "./dataset/fewshot/ATEC_250/train.json",
+        "dev": "./dataset/ATEC/test.json",
+        "lexicon_path": "./dataset/ATEC/ner"
+    },
+    "ATEC_500": {
+        "train": "./dataset/fewshot/ATEC_500/train.json",
+        "dev": "./dataset/ATEC/test.json"
+    },
+    "ATEC_500AC": {
+        "train": "./dataset/fewshot/ATEC_500/train.json",
+        "dev": "./dataset/ATEC/test.json",
+        "lexicon_path": "./dataset/ATEC/ner"
+    },
+    "ATEC_1000": {
+        "train": "./dataset/fewshot/ATEC_1000/train.json",
+        "dev": "./dataset/ATEC/test.json"
+    },
+    "ATEC_1000AC": {
+        "train": "./dataset/fewshot/ATEC_1000/train.json",
+        "dev": "./dataset/ATEC/test.json",
+        "lexicon_path": "./dataset/ATEC/ner"
+    },
+    "ATEC_2000": {
+        "train": "./dataset/fewshot/ATEC_2000/train.json",
+        "dev": "./dataset/ATEC/test.json"
+    },
+    "ATEC_2000AC": {
+        "train": "./dataset/fewshot/ATEC_2000/train.json",
+        "dev": "./dataset/ATEC/test.json",
+        "lexicon_path": "./dataset/ATEC/ner"
+    },
+    "COVID-19": {
+        "train": "./dataset/COVID-19/train.json",
+        "dev": "./dataset/COVID-19/dev.json"
+    },
+    "COVID-19AC": {
+        "train": "./dataset/COVID-19/train.json",
+        "dev": "./dataset/COVID-19/dev.json",
+        "lexicon_path": "./dataset/COVID-19/ner_final"
+    },
+    "COVID-19_250": {
+        "train": "./dataset/fewshot/COVID-19_250/train.json",
+        "dev": "./dataset/COVID-19/dev.json"
+    },
+    "COVID-19_250AC": {
+        "train": "./dataset/fewshot/COVID-19_250/train.json",
+        "dev": "./dataset/COVID-19/dev.json",
+        "lexicon_path": "./dataset/COVID-19/ner_final"
+    },
+    "COVID-19_500": {
+        "train": "./dataset/fewshot/COVID-19_500/train.json",
+        "dev": "./dataset/COVID-19/dev.json"
+    },
+    "COVID-19_500AC": {
+        "train": "./dataset/fewshot/COVID-19_500/train.json",
+        "dev": "./dataset/COVID-19/dev.json",
+        "lexicon_path": "./dataset/COVID-19/ner_final"
+    },
+    "COVID-19_1000": {
+        "train": "./dataset/fewshot/COVID-19_1000/train.json",
+        "dev": "./dataset/COVID-19/dev.json"
+    },
+    "COVID-19_1000AC": {
+        "train": "./dataset/fewshot/COVID-19_1000/train.json",
+        "dev": "./dataset/COVID-19/dev.json",
+        "lexicon_path": "./dataset/COVID-19/ner_final"
+    },
+    "COVID-19_2000": {
+        "train": "./dataset/fewshot/COVID-19_2000/train.json",
+        "dev": "./dataset/COVID-19/dev.json"
+    },
+    "COVID-19_2000AC": {
+        "train": "./dataset/fewshot/COVID-19_2000/train.json",
+        "dev": "./dataset/COVID-19/dev.json",
+        "lexicon_path": "./dataset/COVID-19/ner_final"
+    },
+    "SAS": {
+        "train": "./dataset/SAS/s_train_zh.json",
+        "dev": "./dataset/SAS/s_eval_zh.json",
+        "vocab_file": "./dataset/SAS/entities.csv"
+    },
+    "SFR": {
+        "train": "./dataset/SFR/s_train_zh.json",
+        "dev": "./dataset/SFR/s_eval_zh.json",
+        "vocab_file": "./dataset/SFR/entities.txt"
+    },
+    "SFRFewShot": {
+        "train": "./dataset/SFR/few_shot/s_train_zh.json",
+        "dev": "./dataset/SFR/s_eval_zh.json",
+        "vocab_file": "./dataset/SFR/entities.txt"
+    },
+    "SFRPrompt": {
+        "train": "./dataset/SFR/qa.csv",
+        "dev": "./dataset/SFR/qa.csv",
+        "fewshot": "./dataset/SFR/few_shot/s_train_zh.json"
+    },
+    "ASAG": {
+        "train": "./dataset/shortanswergrading/s_train_zh.json",
+        "dev": "./dataset/shortanswergrading/s_eval_zh.json",
+        "vocab_file": "./dataset/shortanswergrading/entities.txt"
+    },
+    "ASAGFewShot": {
+        "train": "./dataset/shortanswergrading/few_shot/s_train_zh.json",
+        "dev": "./dataset/shortanswergrading/s_eval_zh.json",
+        "vocab_file": "./dataset/shortanswergrading/entities.txt"
+    },
+    "ASAGPrompt": {
+        "train": "./dataset/shortanswergrading/qa_zh.csv",
+        "dev": "./dataset/shortanswergrading/qa_zh.csv",
+        "fewshot": "./dataset/shortanswergrading/few_shot/s_train_zh.json"
+    },
+    "SASFewShot": {
+        "train": "./dataset/SAS/few_shot/s_train_zh.json",
+        "dev": "./dataset/SAS/s_eval_zh.json",
+        "vocab_file": "./dataset/SAS/entities.csv"
+    },
+    "SASPrompt": {
+        "train": "./dataset/SAS/qa.csv",
+        "dev": "./dataset/SAS/qa.csv",
+        "prompt": "./dataset/SAS/few_shot/s_train_zh.json"
+    },
+    "CNSTSCL": {
+        "train": "./dataset/CHIP-STS/CHIP-STS_CL.txt",
+        "dev": "./dataset/CHIP-STS/CHIP-STS_dev.json"
+    },
+    "RemixCL": {
+        "train": "./dataset/CHIP-STS/remix_cl.txt",
+        "dev": "./dataset/CHIP-STS/CHIP-STS_Dev.txt"
+    },
+    "NLISTS": {
+        "train": "./dataset/nli/nli_for_simcse.json",
+        "dev": "./dataset/stsbenchmark/sts-dev.json"
+    },
+    "WikiSTS": {
+        "train": "./dataset/wiki/wiki1m_for_simcse.txt",
+        "dev": "./dataset/stsbenchmark/sts-test.json"
+    },
+    "Boss": {
+        "train": "./dataset/Boss/train.json",
+        "dev": "./dataset/Boss/dev.json"
+    },
+    "BossAC": {
+        "train": "./dataset/Boss/train.json",
+        "dev": "./dataset/Boss/dev.json",
+        "lexicon_path": "./dataset/Boss/ner"
+    },
+    "BossPCAC": {
+        "train": "./dataset/Boss/train.json",
+        "dev": "./dataset/Boss/Bert_pred/台式计算机.json",
+        "lexicon_path": "./dataset/Boss/ner"
+    },
+    "BossUPSAC": {
+        "train": "./dataset/Boss/train.json",
+        "dev": "./dataset/Boss/Bert_pred/不间断电源.json",
+        "lexicon_path": "./dataset/Boss/ner"
+    },
+    "BossCPAC": {
+        "train": "./dataset/Boss/train.json",
+        "dev": "./dataset/Boss/Bert_pred/复印机.json",
+        "lexicon_path": "./dataset/Boss/ner"
+    },
+    "STSDABare": {
+        "train": "./dataset/sts_DA/sts-train-un.txt",
+        "dev": "./dataset/stsbenchmark/sts-dev.json"
+    },
+    "STSDASimple": {
+        "train": "./dataset/sts_DA/simple_generated_samples.jsonl",
+        "dev": "./dataset/stsbenchmark/sts-dev.json"
+    },
+    "STSDANEGUn": {
+        "train": "./dataset/sts_DA/full_generated_neg.json",
+        "dev": "./dataset/stsbenchmark/sts-dev.json"
+    },
+    "STSDANEGUnWithLabel": {
+        "train": "./dataset/sts_DA/full_generated_neg_with_label_sup.json",
+        "dev": "./dataset/stsbenchmark/sts-dev.json"
+    },
+    "STSDAFullUn": {
+        "train": "./dataset/sts_DA/full_generated.jsonl",
+        "dev": "./dataset/stsbenchmark/sts-dev.json"
+    },
+    "STSDAFullv2Un": {
+        "train": "./dataset/sts_DA/full_generated_v2.jsonl",
+        "dev": "./dataset/stsbenchmark/sts-dev.json"
+    },
+    "STSDAFullv3Un": {
+        "train": "./dataset/sts_DA/full_generated_v3.jsonl",
+        "dev": "./dataset/stsbenchmark/sts-dev.json"
+    },
+    "WikiDANEGUn": {
+        "train": "./dataset/wiki_DA/full_generated_neg.jsonl",
+        "dev": "./dataset/stsbenchmark/sts-dev.json"
+    },
+    "WikiDAFullUn": {
+        "train": "./dataset/wiki_DA/full_generated.jsonl",
+        "dev": "./dataset/stsbenchmark/sts-dev.json"
+    },
+    "WikiDAKCenterUn": {
+        "train": "./dataset/wiki_DA/k_center_generated.jsonl",
+        "dev": "./dataset/stsbenchmark/sts-dev.json"
+    },
+    "TransferDAFullUn": {
+        "train": "./dataset/transfer_DA/full_generated.jsonl",
+        "dev": "./dataset/stsbenchmark/sts-dev.json"
+    },
+    "NLIDAFullUn": {
+        "train": "./dataset/nli_DA/full_generated.jsonl",
+        "dev": "./dataset/stsbenchmark/sts-test.json"
+    },
+    "NLIDAWODomain": {
+        "train": "./dataset/nli_DA/wo_domain.jsonl",
+        "dev": "./dataset/stsbenchmark/sts-test.json"
+    },
+    "NLIDAKCenterUn": {
+        "train": "./dataset/nli_DA/k_center_generated.jsonl",
+        "dev": "./dataset/stsbenchmark/sts-dev.json"
+    },
+    "NLIRandomUn": {
+        "train": "./dataset/nli_DA/nli_sts_random.jsonl",
+        "dev": "./dataset/stsbenchmark/sts-dev.json"
+    },
+    "NLIDABare": {
+        "train": "./dataset/nli_DA/nli_sts_bare.txt",
+        "dev": "./dataset/stsbenchmark/sts-dev.json"
+    },
+    "NLI3000": {
+        "train": "./dataset/nli/nli_for_simcse_3000.json",
+        "dev": "./dataset/stsbenchmark/sts-dev.json"
+    },
+    "SynCSE": {
+        "train": "./dataset/SynCSE/train.jsonl",
+        "dev": "./dataset/stsbenchmark/sts-dev.json"
+    },
+    "SynCSEFullUn": {
+        "train": "./dataset/SynCSE/full_generated.jsonl",
+        "dev": "./dataset/stsbenchmark/sts-dev.json"
+    },
+    "TransferDAWoScore": {
+        "train": "./dataset/transfer_DA/wo_score_generated.jsonl",
+        "dev": "./dataset/stsbenchmark/sts-dev.json"
+    }
+}
