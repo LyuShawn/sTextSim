@@ -5,6 +5,7 @@ from prettytable import PrettyTable
 import torch
 from transformers import AutoModel, AutoTokenizer
 import json
+import argparse
 
 PATH_TO_SENTEVAL = "./SentEval"
 PATH_TO_DATA = "./SentEval/data"
@@ -301,3 +302,29 @@ def eval(path, times=3, pooler="cls", task_set="sts", mode="test"):
     with open(os.path.join(path, "avg_scores.json"), "w") as f:
         json.dump(scores, f, indent=4, sort_keys=True)
     return scores
+
+def main():
+# 创建参数解析器
+    parser = argparse.ArgumentParser(description="Run the evaluation")
+    
+    # 添加命令行参数，设定默认值
+    parser.add_argument("--path", type=str, default="./save_model/epoch_0", help="Path to the saved model (default: ./save_model/epoch_0)")
+    parser.add_argument("--times", type=int, default=3, help="Number of times to run the evaluation (default: 3)")
+    parser.add_argument("--pooler", type=str, default="cls", help="Pooler type (default: cls)")
+    parser.add_argument("--task_set", type=str, default="sts", help="Task set (default: sts)")
+    parser.add_argument("--mode", type=str, default="test", help="Mode of operation (default: test)")
+    
+    # 解析命令行参数
+    args = parser.parse_args()
+
+    # 使用解析的参数来调用 eval 函数
+    eval(
+        path=args.path,
+        times=args.times,
+        pooler=args.pooler,
+        task_set=args.task_set,
+        mode=args.mode,
+    )
+
+if __name__ == "__main__":
+    main()
